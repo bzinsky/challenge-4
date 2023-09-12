@@ -1,9 +1,21 @@
-
-let timer = 90
 let quizDiv = document.querySelector("#quiz");
+let timerEl = document.querySelector("#timer");
+let startButton = document.querySelector("#startButton")
+let startQuiz = document.querySelector("#startQuiz")
+let answers = document.querySelector("button")
+let questionsText = document.querySelector("#question")
 let questionButton1 = document.querySelector("#answer1");
-
-let timerID = setInterval(function () {
+let questionButton2 = document.querySelector("#answer2");
+let questionButton3 = document.querySelector("#answer3");
+let questionButton4 = document.querySelector("#answer4");
+let correctAnswer = document.querySelector("correct-answer")
+let currentScore = document.querySelector("currentScore")
+let highScores = JSON.parse(localStorage.getItem("highScores")) || {};
+let saveScore = document.querySelector("#saveScore")
+let initials = document.querySelector("#initials")
+let saveBtn = document.querySelector("#saveBtn")
+let timer = 90
+let startTimer = () => setInterval(function () {
 
     timer -= 1
     console.log(timer)
@@ -13,43 +25,68 @@ let timerID = setInterval(function () {
 
 
 let questions = [{ question: "What color is the sky?", answers: ["blue", "red", "yellow", "green"], correctAnswer: "blue" },
-{ question: "What color is the sky?", answers: ["blue", "red", "yellow", "green"], correctAnswer: "blue" },
-{question: "What is normally used to measure the yield of explosions?", answers:["Newtons", "Weight of TNT", "BTU's", "kg/cm2"], correctAnswer: "Weight of TNT"},
-{question: "How much would one cubic inch of a nuetron star weigh on earth?", answers:["3 lbs", "35 lbs", "950 lbs", "2 billion tons"], correctAnswer: "2 billion tons"},
+{ question: "What color is the ocean?", answers: ["blue", "red", "yellow", "green"], correctAnswer: "blue" },
+{ question: "What is normally used to measure the yield of explosions?", answers: ["Newtons", "Weight of TNT", "BTU's", "kg/cm2"], correctAnswer: "Weight of TNT" },
+{ question: "How much would one cubic inch of a nuetron star weigh on earth?", answers: ["10 lbs", "5000 lbs", "2 million lbs", "2 billion tons"], correctAnswer: "2 billion tons" },
 ]
 
-let currentQuestion = 0
-renderQuestion();
+let currentQuestion = -1
 
-function renderQuestion(){
-    questionButton1.textContent = questions[currentQuestion].answers[0];
+function renderQuestion() {
+    let answerContainer = document.querySelector("#answerContainer")
+    currentQuestion++;
+    if (currentQuestion === 4) {
+        saveScore.classList.remove("hidden")
+        quizDiv.classList.add("hidden")
+        return
+    }
+    console.log("renderQuestion", currentQuestion)
+    questionsText.innerText = questions[currentQuestion].question
+    questionButton1.innerText = questions[currentQuestion].answers[0]
+    questionButton2.innerText = questions[currentQuestion].answers[1]
+    questionButton3.innerText = questions[currentQuestion].answers[2]
+    questionButton4.innerText = questions[currentQuestion].answers[3]
+
+    if (currentQuestion === 0){
+    answerContainer.addEventListener("click", function (event) {
+        console.log("click", event.target.classList[0])
+        if (event.target.classList[0] === "Answer") {
+            console.log(questions[currentQuestion].correctAnswer)
+            event.target.innerText === questions[currentQuestion].correctAnswer ?
+                currentScore++ :
+                timer -= 10;
+            renderQuestion();
+        }
+    })}
+
+
 
 }
+startButton.addEventListener("click", function (event) {
+    console.log(event)
 
-questions[0].question
-questions[0].answers[0]
-questions[0].answers[1]
-questions[0].answers[2]
-questions[0].answers[3]
-questions[0].correctAnswer
-questions[1].question
-questions[1].answers[0]
-questions[1].answers[1]
-questions[1].answers[2]
-questions[1].answers[3]
-questions[1].correctAnswer
-questions[2].question
-questions[2].answers[0]
-questions[2].answers[1]
-questions[2].answers[2]
-questions[2].answers[3]
-questions[2].correctAnswer
 
-quizDiv.addEventListener("click", function(event){
+    startTimer()
+    startQuiz.classList.add("hidden")
+    quizDiv.classList.remove("hidden")
 
-    if(event.target.matches("button"))
-        console.log("clicked")
-        renderQuestion();
-        currentQuestion++
+
+    
+
+    renderQuestion();
+
+
 
 })
+initials.addEventListener("change", function(event){
+    initials.innerText = event.target.value
+})
+saveBtn.addEventListener("click", function (event) {
+    highScores[initials.value] = currentScore
+    let highScoresString = JSON.stringify(highScores)
+    localStorage.setItem("highScores", highScoresString)
+    window.location.href = "./highscores.html"
+})
+
+
+

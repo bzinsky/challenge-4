@@ -5,20 +5,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
 
-    <div id="quiz">
+    <header>
 
+        <div class="head-container">
+        <!-- add link to the Highscore page -->
+            <h3>
+            <a class="highscore" href="">View Highscore Here</a>
+            </h3>
+            <h3 id="timer"></h3>
+            <h3 id="currentScore">0</h3>
+        </div>
+
+    </header>
+    <div id="startQuiz" class="quiz-container button-container">
+        <h1 id="welcomeText">Welcome to the Physics Quiz</h1>
+
+        <button class="btn" id="startButton">Start the quiz!</button>
+
+
+    </div>
+
+
+    <div id="quiz" class="quiz-container button-container hidden">
         <h1 id="question"></h1>
+        <div id="answerContainer">
+        <button class="Answer" id="answer1"></button>
+        <button class="Answer" id="answer2"></button>
+        <button class="Answer" id="answer3"></button>
+        <button class="Answer" id="answer4"></button>
+        </div>
 
+    </div>
 
-
-        <button id="answer1"></button>
-        <button id="answer2"></button>
-        <button id="answer3"></button>
-
+    <div class="result">
+        <p id="correct-answer"></p>
+    </div>
+    <div class="hidden"  id="saveScore">
+        <input id="initials" type="text">
+        <button id="saveBtn"> Initials!</button>
     </div>
 
 
