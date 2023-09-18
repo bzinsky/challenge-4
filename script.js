@@ -24,7 +24,7 @@ let startTimer = () => setInterval(function () {
 }, 1000)
 
 
-let questions = [{ question: "What color is the sky?", answers: ["blue", "red", "yellow", "green"], correctAnswer: "blue" },
+let questions = [{ question: "What color is the sky", answers: ["blue", "red", "yellow", "green"], correctAnswer: "blue" },
 { question: "What color is the ocean?", answers: ["blue", "red", "yellow", "green"], correctAnswer: "blue" },
 { question: "What is normally used to measure the yield of explosions?", answers: ["Newtons", "Weight of TNT", "BTU's", "kg/cm2"], correctAnswer: "Weight of TNT" },
 { question: "How much would one cubic inch of a nuetron star weigh on earth?", answers: ["10 lbs", "5000 lbs", "2 million lbs", "2 billion tons"], correctAnswer: "2 billion tons" },
